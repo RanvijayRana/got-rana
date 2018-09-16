@@ -6,6 +6,11 @@ import { BooksComponent } from './books/books.component';
 import { HousesComponent } from './houses/houses.component';
 import { CharactersComponent } from './characters/characters.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BookDetailsComponent } from './book-details/book-details.component';
+
+import { RouterModule,Routes} from '@angular/router';
+import { BookHttpService } from './book-http.service';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,12 +18,21 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BooksComponent,
     HousesComponent,
     CharactersComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BookDetailsComponent
   ],
   imports: [
-    BrowserModule
+    HttpClientModule,
+    BrowserModule,
+    RouterModule.forRoot([
+      {path:'books',component:BooksComponent},
+      {path:'houses',component:HousesComponent},
+      {path:'characters',component:CharactersComponent},
+      {path:'page',component:PageNotFoundComponent},
+      {path:'bookDetails/:bookUrl',component:BookDetailsComponent}
+    ])
   ],
-  providers: [],
+  providers: [BookHttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
