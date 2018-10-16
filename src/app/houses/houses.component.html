@@ -1,3 +1,20 @@
-<p>
-  houses works!
-</p>
+<div class="container-fluid">
+  <div class="header">All Houses</div>
+
+  <div class="row" *ngIf = "allHouse.length > 0">
+      <div *ngFor = "let house of allHouse" class="col-md-4">
+          <div class="card card-primary">
+              <div class="card-header">Title: </div>
+              <div class="card-block">
+               {{house.name}}
+               <!--{{book}}-->
+              </div>
+              <div class="card-footer"> 
+                  Blog modified on: 
+                  <a [routerLink]="['/bookDetails',house.url]" class = "btn btn-primary">Read</a> 
+              </div>
+          </div>
+      </div>
+  </div>
+
+</div>

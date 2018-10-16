@@ -1,3 +1,20 @@
-<p>
-  characters works!
-</p>
+<div class="container-fluid">
+  <div class="header">All Characters</div>
+
+  <div class="row" *ngIf = "allCharacters.length > 0">
+      <div *ngFor = "let character of allCharacters" class="col-md-4">
+          <div class="card card-primary">
+              <div class="card-header">Title: </div>
+              <div class="card-block">
+               {{character.name}}
+               <!--{{book}}-->
+              </div>
+              <div class="card-footer"> 
+                  Blog modified on: 
+                  <a [routerLink]="['/bookDetails',character.url]" class = "btn btn-primary">Read</a> 
+              </div>
+          </div>
+      </div>
+  </div>
+
+</div>

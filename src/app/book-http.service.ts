@@ -11,7 +11,7 @@ import 'rxjs/add/operator/do';
 export class BookHttpService {
   public allBook;
   public currentBook;
-  public baseUrl = 'https://www.anapioficeandfire.com/api/books';
+  public baseUrl = 'https://www.anapioficeandfire.com/api/';
 
   constructor(private _http:HttpClient) { 
     console.log("Book- http service called");
@@ -23,14 +23,39 @@ export class BookHttpService {
     return Observable.throw(err.message)
   }
 
-  public getAllBook(): any{
-    let myResponse = this._http.get(this.baseUrl);  
+  public getAllBook(bookPageNumber): any{
+    let myResponse = this._http.get(this.baseUrl+'books?page='+bookPageNumber+'&pageSize=6'); 
+    console.log(`page number: ${bookPageNumber}`); 
     console.log(myResponse);
     return myResponse;
   }
 
   public getSingleBook(myBookUrl): any{
     let myResponse = this._http.get(myBookUrl);  
+    console.log(myResponse);
+    return myResponse;
+  }
+
+  public getAllHouse(): any{
+    let myResponse = this._http.get(this.baseUrl+'houses');  
+    console.log(myResponse);
+    return myResponse;
+  }
+
+  public getSingleHouse(myHouseUrl): any{
+    let myResponse = this._http.get(myHouseUrl);  
+    console.log(myResponse);
+    return myResponse;
+  }
+
+  public getAllCharacters(): any{
+    let myResponse = this._http.get(this.baseUrl+'characters');  
+    console.log(myResponse);
+    return myResponse;
+  }
+
+  public getSingleCharacter(myCharacterUrl): any{
+    let myResponse = this._http.get(myCharacterUrl);  
     console.log(myResponse);
     return myResponse;
   }

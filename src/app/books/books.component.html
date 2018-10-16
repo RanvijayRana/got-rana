@@ -1,20 +1,29 @@
 <div class="container-fluid">
-  <div class="header">All Book</div>
+    <div class="header">All Book</div>
 
-  <div class="row" *ngIf = "allBook.length > 0">
-      <div *ngFor = "let book of allBook" class="col-md-4">
-          <div class="card card-primary">
-              <div class="card-header">Title: </div>
-              <div class="card-block">
-               {{book.name}}
-               <!--{{book}}-->
-              </div>
-              <div class="card-footer"> 
-                  Blog modified on: 
-                  <a [routerLink]="['/bookDetails',book.url]" class = "btn btn-primary">Read</a> 
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="row" *ngIf="allBook.length > 0">
+        <div *ngFor="let book of allBook" class="col-md-4">
+            <div class="card card-primary">
+                <div class="card-header">Title: </div>
+                <div class="card-block">
+                    {{book.name}}
+                    <!--{{book}}-->
+                </div>
+                <div class="card-footer">
+                    Blog modified on:
+                    <a [routerLink]="['/bookDetails',book.url]" class="btn btn-primary">Read</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookPrevPageCounter()">previous</a>
+        <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookNextPageCounter()">next</a>
+        <form>
+            Book page number : <input type="number" name="bookPageNumber"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 
 </div>

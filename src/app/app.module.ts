@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
+import { FormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { BooksComponent } from './books/books.component';
 import { HousesComponent } from './houses/houses.component';
@@ -30,7 +33,8 @@ import { HttpClientModule} from '@angular/common/http';
       {path:'characters',component:CharactersComponent},
       {path:'page',component:PageNotFoundComponent},
       {path:'bookDetails/:bookUrl',component:BookDetailsComponent}
-    ])
+    ]),
+    FormsModule
   ],
   providers: [BookHttpService],
   bootstrap: [AppComponent]
