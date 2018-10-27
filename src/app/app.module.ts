@@ -27,14 +27,14 @@ import { HttpClientModule} from '@angular/common/http';
   imports: [
     HttpClientModule,
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot([
       {path:'books',component:BooksComponent},
       {path:'houses',component:HousesComponent},
       {path:'characters',component:CharactersComponent},
       {path:'page',component:PageNotFoundComponent},
       {path:'bookDetails/:bookUrl',component:BookDetailsComponent}
-    ]),
-    FormsModule
+    ])    
   ],
   providers: [BookHttpService],
   bootstrap: [AppComponent]

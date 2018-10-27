@@ -20,9 +20,10 @@
     <div>
         <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookPrevPageCounter()">previous</a>
         <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookNextPageCounter()">next</a>
-        <form>
-            Book page number : <input type="number" name="bookPageNumber"><br>
-            <input type="submit" value="Submit">
+        <form #createGOTform = "ngForm">
+            Book page number[1 to {{maxPage}}]: <input type="number" name="bookPageNumber" 
+                        [(ngModel)] = "bookPageNumber" #pageNumber = "ngModel" onkeyup="lettersOnly(this)"><br>
+            <button type="submit" (click) = "navigateToPage()"> Submit </button>
         </form>
     </div>
 
