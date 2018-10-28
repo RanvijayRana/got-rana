@@ -1,6 +1,8 @@
 <div class="container-fluid">
     <div class="header">All Book</div>
 
+    
+
     <div class="row" *ngIf="allBook.length > 0">
         <div *ngFor="let book of allBook" class="col-md-4">
             <div class="card card-primary">
@@ -20,10 +22,10 @@
     <div>
         <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookPrevPageCounter()">previous</a>
         <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookNextPageCounter()">next</a>
-        <form #createGOTform = "ngForm">
-            Book page number[1 to {{maxPage}}]: <input type="number" name="bookPageNumber" 
+        <form #createGOTform = "ngForm" (ngSubmit) = "navigateToPage()" >
+            Book page number[1 to {{maxPage}}]: <input type="number" name="bookPageNumber" class = "me"
                         [(ngModel)] = "bookPageNumber" #pageNumber = "ngModel" onkeyup="lettersOnly(this)"><br>
-            <button type="submit" (click) = "navigateToPage()"> Submit </button>
+            <button type="submit"> Submit </button>
         </form>
     </div>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BookHttpService} from '../book-http.service'
+import { BookHttpService } from '../book-http.service'
+declare var $: any;
 
 @Component({
   selector: 'app-books',
@@ -12,38 +13,47 @@ export class BooksComponent implements OnInit {
   public allBook = [];
   public bookPageNumber: number = 1;
   public maxPage: number;
+  public bookName: string = "";
 
   constructor(public bookHttpService: BookHttpService) { }
 
   ngOnInit() {
+    $(".me").focusout(() => {
+        if (this.bookPageNumber < 1 || this.bookPageNumber > this.maxPage) {
+          alert("rana ranvijay");
+        }/*
+        if($(".searchById").val() == ""){
+            $(".searchByTitle").removeAttr("disabled");
+            $(".searchByYear").removeAttr("disabled");
+        }*/
+      }
+    )
 
-    if(12%6 == 0){
-      this.maxPage = 12/6;  
+    if (12 % 6 == 0) {
+      this.maxPage = 12 / 6;
     }
-    else{
-      this.maxPage = 12/6 + 1;
+    else {
+      this.maxPage = 12 / 6 + 1;
     }
 
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
-      data =>{
+      data => {
         this.allBook = data;
         //this.allBook = data[0].authors;
       },
-      error =>{
-        if(error = 'ERR_INTERNET_DISCONNECTED'){
-          alert("Not connected to Internet, check your connection please");  
+      error => {
+        if (error = 'ERR_INTERNET_DISCONNECTED') {
+          alert("Not connected to Internet, check your connection please");
         }
         console.log("some error occured");
         console.log(error.errorMessage);
-      }/*,
-      beforeSend =>
-      {
-        (".loader").css("display","flex");
       },
-      complete =>
-      {
-         (".loader").css("display","none");
-      }*/
+      beforeSend => {
+        $(".loader").css("display", "flex");
+      },
+      complete => {
+        $(".loader").css("display", "none");
+      }
     )
   }
 
@@ -51,10 +61,10 @@ export class BooksComponent implements OnInit {
     this.bookPageNumber++;
     console.log(this.bookPageNumber);
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
-      data =>{
-        
+      data => {
+
         console.log(data.length);
-        if(data.length == 0){
+        if (data.length == 0) {
           this.bookPageNumber--;
           alert("You are at the last page of durectory and Data on this page are as follow");
           this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
@@ -62,23 +72,24 @@ export class BooksComponent implements OnInit {
               this.allBook = data;
             },
             error => {
-              if(error = 'ERR_INTERNET_DISCONNECTED'){
-                alert("Not connected to Internet, check your connection please");  
+              if (error = 'ERR_INTERNET_DISCONNECTED') {
+                alert("Not connected to Internet, check your connection please");
               }
               console.log("some error occured");
-              console.log(error.errorMessage);}
+              console.log(error.errorMessage);
+            }
           )
         }
-        else{
+        else {
           console.log("hello");
           this.allBook = data;
         }
         console.log(data.length);
-        
+
       },
-      error =>{
-        if(error = 'ERR_INTERNET_DISCONNECTED'){
-          alert("Not connected to Internet, check your connection please");  
+      error => {
+        if (error = 'ERR_INTERNET_DISCONNECTED') {
+          alert("Not connected to Internet, check your connection please");
         }
         console.log("some error occured");
         console.log(error.errorMessage);
@@ -88,28 +99,28 @@ export class BooksComponent implements OnInit {
 
   bookPrevPageCounter() {
     this.bookPageNumber--;
-    if(this.bookPageNumber <= 0){
+    if (this.bookPageNumber <= 0) {
       alert("You are the first page of directory; and data are as follow");
       this.bookPageNumber = 1;
     }
     console.log(this.bookPageNumber);
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
-      data =>{
-        
-        
-        if(data.length == 0){
+      data => {
+
+
+        if (data.length == 0) {
           this.bookPageNumber++;
           alert("data not found");
         }
-        else{
+        else {
           this.allBook = data;
           console.log(data);
         }
         //this.allBook = data[0].authors;
       },
-      error =>{
-        if(error = 'ERR_INTERNET_DISCONNECTED'){
-          alert("Not connected to Internet, check your connection please");  
+      error => {
+        if (error = 'ERR_INTERNET_DISCONNECTED') {
+          alert("Not connected to Internet, check your connection please");
         }
         console.log("some error occured");
         console.log(error.errorMessage);
@@ -120,32 +131,33 @@ export class BooksComponent implements OnInit {
   navigateToPage() {
     console.log(this.bookPageNumber);
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
-      data =>{
-        if(data.length == 0){
+      data => {
+        if (data.length == 0) {
           alert("data not found");
         }
-        else{
+        else {
           this.allBook = data;
           console.log(data);
         }
         //this.allBook = data[0].authors;
       },
-      error =>{
-        if(error = 'ERR_INTERNET_DISCONNECTED'){
-          alert("Not connected to Internet, check your connection please");  
+      error => {
+        if (error = 'ERR_INTERNET_DISCONNECTED') {
+          alert("Not connected to Internet, check your connection please");
         }
         console.log("some error occured");
         console.log(error.errorMessage);
       }
-    )  
+    )
   }
 
-  lettersOnly(input){
+  lettersOnly(input) {
     var regex = /[^0-9]/g;
-    input.value = input.value.replace(regex,"");
-    if(input <= 0 || input >= 2){
+    input.value = input.value.replace(regex, "");
+    if (input <= 0 || input >= 2) {
       input.value = input.value.replace("1");
     }
   }
+
 
 }
