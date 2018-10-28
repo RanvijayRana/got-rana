@@ -17,15 +17,12 @@ export class BooksComponent implements OnInit {
 
   ngOnInit() {
 
-    
-
     if(12%6 == 0){
       this.maxPage = 12/6;  
     }
     else{
       this.maxPage = 12/6 + 1;
     }
-    
 
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data =>{
