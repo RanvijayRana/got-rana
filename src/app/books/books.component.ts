@@ -13,28 +13,30 @@ export class BooksComponent implements OnInit {
   public allBook = [];
   public bookPageNumber: number = 1;
   public maxPage: number;
+  public pageNumber: number = 1;
   public bookName: string = "";
+  public flag:number = 0;
 
   constructor(public bookHttpService: BookHttpService) { }
 
   ngOnInit() {
-    $(".me").focusout(() => {
-        if (this.bookPageNumber < 1 || this.bookPageNumber > this.maxPage) {
-          alert("rana ranvijay");
-        }/*
-        if($(".searchById").val() == ""){
-            $(".searchByTitle").removeAttr("disabled");
-            $(".searchByYear").removeAttr("disabled");
-        }*/
-      }
-    )
-
+    
     if (12 % 6 == 0) {
       this.maxPage = 12 / 6;
     }
     else {
       this.maxPage = 12 / 6 + 1;
     }
+
+    $(".me").focusout(() => {
+      if (this.bookPageNumber < 1 || this.bookPageNumber > this.maxPage) {
+        $(".btnid").css("display", "none");
+      }
+      else {
+        $(".btnid").css("display", "flex");
+      }
+    }
+    )
 
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
@@ -57,6 +59,36 @@ export class BooksComponent implements OnInit {
     )
   }
 
+  searchBook() {
+    while(this.pageNumber <= this.maxPage && this.flag == 0){
+      this.allBook = this.bookHttpService.getAllBook(this.pageNumber).subscribe(
+        data => {
+          if(data.length >= 0){
+            for (let index = 0; index < data.length; index++) {
+              if(data[index].name == this.bookName){
+                  this.flag ++;
+                  this.allBook = [];
+                  this.allBook.push(data[index]);
+                  break;
+              }  
+            }
+          }
+        },
+        error => {
+          if (error = 'ERR_INTERNET_DISCONNECTED') {
+            alert("Not connected to Internet, check your connection please");
+          }
+          console.log("some error occured");
+          console.log(error.errorMessage);
+        }
+      )
+          this.pageNumber++;
+
+
+    }
+    
+  }
+
   bookNextPageCounter() {
     this.bookPageNumber++;
     console.log(this.bookPageNumber);
@@ -66,7 +98,7 @@ export class BooksComponent implements OnInit {
         console.log(data.length);
         if (data.length == 0) {
           this.bookPageNumber--;
-          alert("You are at the last page of durectory and Data on this page are as follow");
+          alert("You are at the last page of directory and Data on this page are as follow");
           this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
             data => {
               this.allBook = data;
@@ -151,12 +183,14 @@ export class BooksComponent implements OnInit {
     )
   }
 
-  lettersOnly(input) {
+  digitsOnly(input) {
     var regex = /[^0-9]/g;
     input.value = input.value.replace(regex, "");
-    if (input <= 0 || input >= 2) {
-      input.value = input.value.replace("1");
-    }
+  }
+
+  lettersOnly(input) {
+    var regex = /[^a-z]/gi;
+    input.value = input.value.replace(regex, "");
   }
 
 

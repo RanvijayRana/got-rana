@@ -1,6 +1,14 @@
 <div class="container-fluid">
   <div class="header">All Characters</div>
 
+  <div>
+    <form #searchGOTform = "ngForm" (ngSubmit) = "searchBook()">
+        Book name to be searched: <input type="text" name="bookName" class = "me1"
+                    [(ngModel)] = "bookName" #bookName1 = "ngModel" onkeyup="lettersOnly(this)"><br>
+        <button type="submit" > Search the Book </button>
+    </form>
+</div>
+
   <div class="row" *ngIf = "allCharacters.length > 0">
       <div *ngFor = "let character of allCharacters" class="col-md-4">
           <div class="card card-primary">
@@ -16,5 +24,15 @@
           </div>
       </div>
   </div>
+
+  <div>
+    <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookPrevPageCounter()">previous</a>
+    <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookNextPageCounter()">next</a>
+    <form #createGOTform = "ngForm" (ngSubmit) = "navigateToPage()" >
+        Book page number[1 to {{maxPage}}]: <input type="number" name="bookPageNumber" class = "me"
+                    [(ngModel)] = "bookPageNumber" #pageNumber = "ngModel" onkeyup="digitsOnly(this)"><br>
+        <button type="submit" class = "btnid"> Submit </button>
+    </form>
+</div>
 
 </div>
