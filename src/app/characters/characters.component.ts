@@ -11,10 +11,10 @@ declare var $: any;
 export class CharactersComponent implements OnInit {
 
   public allCharacters =[];
-  public bookPageNumber: number = 1;
+  public characterPageNumber: number = 1;
   public maxPage: number;
   public pageNumber: number = 1;
-  public bookName: string = "";
+  public characterName: string = "";
   public flag:number = 0;
 
   constructor(public bookHttpService: BookHttpService) { }
@@ -22,14 +22,14 @@ export class CharactersComponent implements OnInit {
   ngOnInit() {
 
     if (2138 % 6 == 0) {
-      this.maxPage = 12 / 6;
+      this.maxPage = 2138 / 6;
     }
     else {
-      this.maxPage = 2138 / 6 + 1;
+      this.maxPage = Math.floor(2138 / 6) + 1;
     }
 
     $(".me").focusout(() => {
-      if (this.bookPageNumber < 1 || this.bookPageNumber > this.maxPage) {
+      if (this.characterPageNumber < 1 || this.characterPageNumber > this.maxPage) {
         $(".btnid").css("display", "none");
       }
       else {
@@ -38,7 +38,7 @@ export class CharactersComponent implements OnInit {
     }
     )
 
-    this.allCharacters = this.bookHttpService.getAllCharacters().subscribe(
+    this.allCharacters = this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
       data =>{
         this.allCharacters = data;
         //this.allBook = data[0].authors;
@@ -58,14 +58,14 @@ export class CharactersComponent implements OnInit {
 
   searchBook() {
     while(this.pageNumber <= this.maxPage && this.flag == 0){
-      this.allBook = this.bookHttpService.getAllBook(this.pageNumber).subscribe(
+      this.allCharacters = this.bookHttpService.getAllCharacters(this.pageNumber).subscribe(
         data => {
           if(data.length >= 0){
             for (let index = 0; index < data.length; index++) {
-              if(data[index].name == this.bookName){
+              if(data[index].name == this.characterName){
                   this.flag ++;
-                  this.allBook = [];
-                  this.allBook.push(data[index]);
+                  this.allCharacters = [];
+                  this.allCharacters.push(data[index]);
                   break;
               }  
             }
@@ -87,18 +87,18 @@ export class CharactersComponent implements OnInit {
   }
 
   bookNextPageCounter() {
-    this.bookPageNumber++;
-    console.log(this.bookPageNumber);
-    this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
+    this.characterPageNumber++;
+    console.log(this.characterPageNumber);
+    this.allCharacters= this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
       data => {
 
         console.log(data.length);
         if (data.length == 0) {
-          this.bookPageNumber--;
+          this.characterPageNumber--;
           alert("You are at the last page of directory and Data on this page are as follow");
-          this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
+          this.allCharacters = this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
             data => {
-              this.allBook = data;
+              this.allCharacters = data;
             },
             error => {
               if (error = 'ERR_INTERNET_DISCONNECTED') {
@@ -111,7 +111,7 @@ export class CharactersComponent implements OnInit {
         }
         else {
           console.log("hello");
-          this.allBook = data;
+          this.allCharacters = data;
         }
         console.log(data.length);
 
@@ -127,22 +127,22 @@ export class CharactersComponent implements OnInit {
   }
 
   bookPrevPageCounter() {
-    this.bookPageNumber--;
-    if (this.bookPageNumber <= 0) {
+    this.characterPageNumber--;
+    if (this.characterPageNumber <= 0) {
       alert("You are the first page of directory; and data are as follow");
-      this.bookPageNumber = 1;
+      this.characterPageNumber = 1;
     }
-    console.log(this.bookPageNumber);
-    this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
+    console.log(this.characterPageNumber);
+    this.allCharacters = this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
       data => {
 
 
         if (data.length == 0) {
-          this.bookPageNumber++;
+          this.characterPageNumber++;
           alert("data not found");
         }
         else {
-          this.allBook = data;
+          this.allCharacters = data;
           console.log(data);
         }
         //this.allBook = data[0].authors;
@@ -158,14 +158,14 @@ export class CharactersComponent implements OnInit {
   }
 
   navigateToPage() {
-    console.log(this.bookPageNumber);
-    this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
+    console.log(this.characterPageNumber);
+    this.allCharacters = this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
       data => {
         if (data.length == 0) {
           alert("data not found");
         }
         else {
-          this.allBook = data;
+          this.allCharacters = data;
           console.log(data);
         }
         //this.allBook = data[0].authors;

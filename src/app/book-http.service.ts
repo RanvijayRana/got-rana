@@ -36,8 +36,8 @@ export class BookHttpService {
     return myResponse;
   }
 
-  public getAllHouse(): any{
-    let myResponse = this._http.get(this.baseUrl+'houses');  
+  public getAllHouse(housePageNumber): any{
+    let myResponse = this._http.get(this.baseUrl+'houses?page='+housePageNumber+'&pageSize=6');  
     console.log(myResponse);
     return myResponse;
   }
@@ -48,8 +48,8 @@ export class BookHttpService {
     return myResponse;
   }
 
-  public getAllCharacters(): any{
-    let myResponse = this._http.get(this.baseUrl+'characters');  
+  public getAllCharacters(characterPageNumber): any{
+    let myResponse = this._http.get(this.baseUrl+'characters?page='+characterPageNumber+'&pageSize=6');  
     console.log(myResponse);
     return myResponse;
   }

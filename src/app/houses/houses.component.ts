@@ -11,10 +11,10 @@ declare var $: any;
 export class HousesComponent implements OnInit {
 
   public allHouse = [];
-  public bookPageNumber: number = 1;
+  public housePageNumber: number = 1;
   public maxPage: number;
   public pageNumber: number = 1;
-  public bookName: string = "";
+  public houseName: string = "";
   public flag:number = 0;
 
   constructor(public bookHttpService: BookHttpService) { }
@@ -22,14 +22,14 @@ export class HousesComponent implements OnInit {
   ngOnInit() {
 
     if (444 % 6 == 0) {
-      this.maxPage = 12 / 6;
+      this.maxPage = 444 / 6;
     }
     else {
-      this.maxPage = 444 / 6 + 1;
+      this.maxPage = Math.floor(444 / 6) + 1;
     }
 
     $(".me").focusout(() => {
-      if (this.bookPageNumber < 1 || this.bookPageNumber > this.maxPage) {
+      if (this.housePageNumber < 1 || this.housePageNumber > this.maxPage) {
         $(".btnid").css("display", "none");
       }
       else {
@@ -38,7 +38,7 @@ export class HousesComponent implements OnInit {
     }
     )
 
-    this.allHouse = this.bookHttpService.getAllHouse().subscribe(
+    this.allHouse = this.bookHttpService.getAllHouse(this.pageNumber).subscribe(
       data =>{
         console.log(data);
         this.allHouse = data;
@@ -58,14 +58,14 @@ export class HousesComponent implements OnInit {
 
   searchBook() {
     while(this.pageNumber <= this.maxPage && this.flag == 0){
-      this.allBook = this.bookHttpService.getAllBook(this.pageNumber).subscribe(
+      this.allHouse = this.bookHttpService.getAllHouse(this.pageNumber).subscribe(
         data => {
           if(data.length >= 0){
             for (let index = 0; index < data.length; index++) {
-              if(data[index].name == this.bookName){
+              if(data[index].name == this.houseName){
                   this.flag ++;
-                  this.allBook = [];
-                  this.allBook.push(data[index]);
+                  this.allHouse = [];
+                  this.allHouse.push(data[index]);
                   break;
               }  
             }
@@ -87,18 +87,18 @@ export class HousesComponent implements OnInit {
   }
 
   bookNextPageCounter() {
-    this.bookPageNumber++;
-    console.log(this.bookPageNumber);
-    this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
+    this.housePageNumber++;
+    console.log(this.housePageNumber);
+    this.allHouse = this.bookHttpService.getAllHouse(this.housePageNumber).subscribe(
       data => {
 
         console.log(data.length);
         if (data.length == 0) {
-          this.bookPageNumber--;
+          this.housePageNumber--;
           alert("You are at the last page of directory and Data on this page are as follow");
-          this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
+          this.allHouse = this.bookHttpService.getAllHouse(this.housePageNumber).subscribe(
             data => {
-              this.allBook = data;
+              this.allHouse = data;
             },
             error => {
               if (error = 'ERR_INTERNET_DISCONNECTED') {
@@ -111,7 +111,7 @@ export class HousesComponent implements OnInit {
         }
         else {
           console.log("hello");
-          this.allBook = data;
+          this.allHouse = data;
         }
         console.log(data.length);
 
@@ -127,22 +127,22 @@ export class HousesComponent implements OnInit {
   }
 
   bookPrevPageCounter() {
-    this.bookPageNumber--;
-    if (this.bookPageNumber <= 0) {
+    this.housePageNumber--;
+    if (this.housePageNumber <= 0) {
       alert("You are the first page of directory; and data are as follow");
-      this.bookPageNumber = 1;
+      this.housePageNumber = 1;
     }
-    console.log(this.bookPageNumber);
-    this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
+    console.log(this.housePageNumber);
+    this.allHouse = this.bookHttpService.getAllHouse(this.housePageNumber).subscribe(
       data => {
 
 
         if (data.length == 0) {
-          this.bookPageNumber++;
+          this.housePageNumber++;
           alert("data not found");
         }
         else {
-          this.allBook = data;
+          this.allHouse = data;
           console.log(data);
         }
         //this.allBook = data[0].authors;
@@ -158,14 +158,14 @@ export class HousesComponent implements OnInit {
   }
 
   navigateToPage() {
-    console.log(this.bookPageNumber);
-    this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
+    console.log(this.housePageNumber);
+    this.allHouse = this.bookHttpService.getAllHouse(this.housePageNumber).subscribe(
       data => {
         if (data.length == 0) {
           alert("data not found");
         }
         else {
-          this.allBook = data;
+          this.allHouse = data;
           console.log(data);
         }
         //this.allBook = data[0].authors;

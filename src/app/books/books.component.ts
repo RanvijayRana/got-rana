@@ -25,7 +25,7 @@ export class BooksComponent implements OnInit {
       this.maxPage = 12 / 6;
     }
     else {
-      this.maxPage = 12 / 6 + 1;
+      this.maxPage = Math.floor(12 / 6) + 1;
     }
 
     $(".me").focusout(() => {
