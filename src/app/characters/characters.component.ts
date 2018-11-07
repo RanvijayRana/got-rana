@@ -56,7 +56,7 @@ export class CharactersComponent implements OnInit {
     )
   }
 
-  searchBook() {
+  searchCharacter() {
     while(this.pageNumber <= this.maxPage && this.flag == 0){
       this.allCharacters = this.bookHttpService.getAllCharacters(this.pageNumber).subscribe(
         data => {

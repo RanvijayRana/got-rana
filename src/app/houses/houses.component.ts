@@ -15,7 +15,7 @@ export class HousesComponent implements OnInit {
   public maxPage: number;
   public pageNumber: number = 1;
   public houseName: string = "";
-  public flag:number = 0;
+  public flag:number = -1;
 
   constructor(public bookHttpService: BookHttpService) { }
 
@@ -56,14 +56,14 @@ export class HousesComponent implements OnInit {
     )
   }
 
-  searchBook() {
+  searchHouse() {
     while(this.pageNumber <= this.maxPage && this.flag == 0){
       this.allHouse = this.bookHttpService.getAllHouse(this.pageNumber).subscribe(
         data => {
           if(data.length >= 0){
             for (let index = 0; index < data.length; index++) {
-              if(data[index].name == this.houseName){
-                  this.flag ++;
+              this.flag = data[index].name.toLowerCase().search(this.houseName.toLowerCase);
+              if( this.flag >= 0){
                   this.allHouse = [];
                   this.allHouse.push(data[index]);
                   break;

@@ -2,7 +2,7 @@
   <div class="header">All Houses</div>
 
   <div>
-    <form #searchGOTform = "ngForm" (ngSubmit) = "searchBook()">
+    <form #searchGOTform = "ngForm" (ngSubmit) = "searchHouse()">
         Book name to be searched: <input type="text" name="houseName" class = "me1"
                     [(ngModel)] = "houseName" #houseName1 = "ngModel" onkeyup="lettersOnly(this)"><br>
         <button type="submit" > Search the Book </button>
@@ -11,7 +11,7 @@
 
   <div class="row" *ngIf = "allHouse.length > 0">
       <div *ngFor = "let house of allHouse" class="col-md-4">
-          <div class="card card-primary">
+          <div class="card card-primary houseDesign">
               <div class="card-header">Title: </div>
               <div class="card-block">
                {{house.name}}
