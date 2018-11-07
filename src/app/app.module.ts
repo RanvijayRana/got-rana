@@ -8,8 +8,9 @@ import { AppComponent } from './app.component';
 import { BooksComponent } from './books/books.component';
 import { HousesComponent } from './houses/houses.component';
 import { CharactersComponent } from './characters/characters.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { CharacterDetailsComponent } from './character-details/character-details.component';
+import { HouseDetailsComponent } from './house-details/house-details.component';
 
 import { RouterModule,Routes} from '@angular/router';
 import { BookHttpService } from './book-http.service';
@@ -21,8 +22,9 @@ import { HttpClientModule} from '@angular/common/http';
     BooksComponent,
     HousesComponent,
     CharactersComponent,
-    PageNotFoundComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    CharacterDetailsComponent,
+    HouseDetailsComponent
   ],
   imports: [
     HttpClientModule,
@@ -32,8 +34,9 @@ import { HttpClientModule} from '@angular/common/http';
       {path:'books',component:BooksComponent},
       {path:'houses',component:HousesComponent},
       {path:'characters',component:CharactersComponent},
-      {path:'page',component:PageNotFoundComponent},
-      {path:'bookDetails/:bookUrl',component:BookDetailsComponent}
+      {path:'bookDetails/:bookUrl',component:BookDetailsComponent},
+      {path:'characterDetails/:bookUrl',component:CharacterDetailsComponent},
+      {path:'houseDetails/:bookUrl',component:HouseDetailsComponent}
     ])    
   ],
   providers: [BookHttpService],
