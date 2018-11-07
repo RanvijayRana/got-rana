@@ -51,10 +51,10 @@ export class BooksComponent implements OnInit {
         console.log(error.errorMessage);
       },
       beforeSend => {
-        $(".loader").css("display", "flex");
+        $(".loader").css("display","flex");
       },
       complete => {
-        $(".loader").css("display", "none");
+        $(".loader").css("display","none");
       }
     )
   }
@@ -80,6 +80,12 @@ export class BooksComponent implements OnInit {
           }
           console.log("some error occured");
           console.log(error.errorMessage);
+        },
+        beforeSend => {
+          $(".loader").css("display","flex");
+        },
+        complete => {
+          $(".loader").css("display","none");
         }
       )
           this.pageNumber++;

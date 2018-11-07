@@ -86,7 +86,7 @@ export class HousesComponent implements OnInit {
     
   }
 
-  bookNextPageCounter() {
+  houseNextPageCounter() {
     this.housePageNumber++;
     console.log(this.housePageNumber);
     this.allHouse = this.bookHttpService.getAllHouse(this.housePageNumber).subscribe(
@@ -126,7 +126,7 @@ export class HousesComponent implements OnInit {
     )
   }
 
-  bookPrevPageCounter() {
+  housePrevPageCounter() {
     this.housePageNumber--;
     if (this.housePageNumber <= 0) {
       alert("You are the first page of directory; and data are as follow");

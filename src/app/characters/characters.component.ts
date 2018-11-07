@@ -86,7 +86,7 @@ export class CharactersComponent implements OnInit {
     
   }
 
-  bookNextPageCounter() {
+  characterNextPageCounter() {
     this.characterPageNumber++;
     console.log(this.characterPageNumber);
     this.allCharacters= this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
@@ -126,7 +126,7 @@ export class CharactersComponent implements OnInit {
     )
   }
 
-  bookPrevPageCounter() {
+  characterPrevPageCounter() {
     this.characterPageNumber--;
     if (this.characterPageNumber <= 0) {
       alert("You are the first page of directory; and data are as follow");

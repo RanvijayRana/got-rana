@@ -35,8 +35,8 @@ import { HttpClientModule} from '@angular/common/http';
       {path:'houses',component:HousesComponent},
       {path:'characters',component:CharactersComponent},
       {path:'bookDetails/:bookUrl',component:BookDetailsComponent},
-      {path:'characterDetails/:bookUrl',component:CharacterDetailsComponent},
-      {path:'houseDetails/:bookUrl',component:HouseDetailsComponent}
+      {path:'characterDetails/:characterUrl',component:CharacterDetailsComponent},
+      {path:'houseDetails/:houseUrl',component:HouseDetailsComponent}
     ])    
   ],
   providers: [BookHttpService],

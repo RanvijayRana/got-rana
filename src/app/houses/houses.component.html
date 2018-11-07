@@ -19,15 +19,15 @@
               </div>
               <div class="card-footer"> 
                   Blog modified on: 
-                  <a [routerLink]="['/bookDetails',house.url]" class = "btn btn-primary">Read</a> 
+                  <a [routerLink]="['/houseDetails',house.url]" class = "btn btn-primary">Read</a> 
               </div>
           </div>
       </div>
   </div>
 
   <div>
-    <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookPrevPageCounter()">previous</a>
-    <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookNextPageCounter()">next</a>
+    <a [routerLink]="['/houses']" class="btn btn-primary" (click) = "housePrevPageCounter()">previous</a>
+    <a [routerLink]="['/houses']" class="btn btn-primary" (click) = "houseNextPageCounter()">next</a>
     <form #createGOTform = "ngForm" (ngSubmit) = "navigateToPage()" >
         Book page number[1 to {{maxPage}}]: <input type="number" name="housePageNumber" class = "me"
                     [(ngModel)] = "housePageNumber" #huousepageNumber1 = "ngModel" onkeyup="digitsOnly(this)"><br>
