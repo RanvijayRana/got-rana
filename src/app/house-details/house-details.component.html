@@ -2,11 +2,34 @@
   <div class="header">specific House</div>
 
   <div class="row" >
-      <div class="col-md-4">
+      <div class="col-md-10">
           <div class="card card-primary houseDesign">
-              <div class="card-header">Title: </div>
+              <div class="card-header">Details of the House: - {{myHouse.name}} </div>
               <div class="card-block">
-               {{myHouse.name}}
+                  URL of the house:  <span class = "fontDesign">{{myHouse.url}}</span> <br>
+                  Name of the house:  <span class = "fontDesign">{{myHouse.name}}</span> <br>
+                  Region of the house:  <span class = "fontDesign">{{myHouse.region}}</span> <br>
+                  Coat of arms of the house:  <span class = "fontDesign">{{myHouse.coatOfArms}}</span> <br>
+                  Words of house:  <span class = "fontDesign">{{myHouse.words}}</span> <br>
+
+                  Titles of the house:  <span class = "fontDesign" *ngFor = "let title of myHouse.titles" >
+                      {{title}}</span> <br>
+                  Seats of the house:  <span class = "fontDesign" *ngFor = "let seat of myHouse.seats" >
+                      {{seat}}</span> <br>
+
+                  Current Lord of the house:  <span class = "fontDesign">{{myHouse.currentLord}}</span> <br>
+                  Heir of the house:  <span class = "fontDesign">{{myHouse.heir}}</span> <br>
+                  Overlord of the house:  <span class = "fontDesign">{{myHouse.overlord}}</span> <br>
+                  Founded of the house:  <span class = "fontDesign">{{myHouse.founded}}</span> <br>
+                  Founder of the house:  <span class = "fontDesign">{{myHouse.founder}}</span> <br>
+                  DiedOut of the house:  <span class = "fontDesign">{{myHouse.diedOut}}</span> <br>
+
+                  Ancestral Weapon of the house:  <span class = "fontDesign"  *ngFor = "let weapon of myHouse.ancestralWeapons" >
+                      {{weapon}}</span> <br>
+                  Cadet Branches of the house:  <span class = "fontDesign"  *ngFor = "let cadet of myHouse.cadetBranches" >
+                      {{cadet}}</span> <br>
+                  Sworn Members of the house:  <span class = "fontDesign"  *ngFor = "let member of myHouse.swornMembers" >
+                      {{member}}</span> <br>
               </div>
               <div class="card-footer"> 
                   

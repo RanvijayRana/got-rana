@@ -3,3 +3,8 @@
     border: 5px solid green;
     border-radius: 5px;
 }
+
+.fontDesign {
+    font-size: 20px;
+    color: blue;
+}

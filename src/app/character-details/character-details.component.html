@@ -2,11 +2,40 @@
   <div class="header">specific Book</div>
 
   <div class="row" >
-      <div class="col-md-4">
+      <div class="col-md-10">
           <div class="card card-primary characDesign">
-              <div class="card-header">Title: </div>
+              <div class="card-header">Details of the character with Name/aliases: - {{myCharacter.name}},
+                  <span class = "fontDesign" *ngFor = "let alias of myCharacter.aliases">
+                   {{alias}}</span> </div>
               <div class="card-block">
-               {{myCharacter.name}}
+               URL for the character: <span class = "fontDesign">{{myCharacter.url}}</span> <br>
+               Name of the character: <span class = "fontDesign">{{myCharacter.name}}</span> <br>
+               Gender of the character: <span class = "fontDesign">{{myCharacter.gender}}</span> <br>
+               Culture of the character: <span class = "fontDesign">{{myCharacter.culture}}</span> <br>
+               Character Born: <span class = "fontDesign">{{myCharacter.born}}</span> <br>
+               Character died: <span class = "fontDesign">{{myCharacter.died}}</span> <br>
+               <div *ngFor = " let title of myCharacter.titles">
+                        Titles of the character: <span class = "fontDesign">{{title}}</span> <br>
+               </div>
+               <div>
+
+               </div>
+               Aliases of the character: <span class = "fontDesign" *ngFor = "let alias of myCharacter.aliases">
+                    {{alias}}</span> <br>
+               Father of the character: <span class = "fontDesign">{{myCharacter.father}}</span> <br>
+               Mouther of the character: <span class = "fontDesign">{{myCharacter.mother}}</span> <br>
+               Spouse of the character: <span class = "fontDesign">{{myCharacter.spouse}}</span> <br>
+               Allegiances of the character: <span class = "fontDesign" *ngFor = "let allegiance of myCharacter.allegiances">
+                    {{allegiance}}</span> <br>
+               Character present in Book: <span class = "fontDesign" *ngFor = "let book of myCharacter.books">
+                    {{book}}</span> <br>
+               Character present in povBook: <span class = "fontDesign" *ngFor = "let pov of myCharacter.povBooks">
+                    {{pov}}</span> <br>
+               Character present in TV-Series: <span class = "fontDesign" *ngFor = "let tv of myCharacter.tvSeriess">
+                    {{tv}}</span> <br>
+               Character played by: <span class = "fontDesign" *ngFor = "let play of myCharacter.playedBy">
+                    {{play}}</span> <br>
+
               </div>
               <div class="card-footer"> 
                   
