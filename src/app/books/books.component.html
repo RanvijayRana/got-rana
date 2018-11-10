@@ -2,11 +2,15 @@
     <div class="header">All Book</div>
 
     <div>
-        <form #searchGOTform = "ngForm" (ngSubmit) = "searchBook()">
-            Book name to be searched: <input type="text" name="bookName" class = "me1"
-                        [(ngModel)] = "bookName" #bookName1 = "ngModel" onkeyup="lettersOnly(this)"><br>
+        <form #searchGOTform = "ngForm" (ngSubmit) = "searchBook()" >
+            Book name to be searched: <input type="text" name="bookName"
+            [(ngModel)] = "bookName" #bookName1 = "ngModel" onkeyup="lettersOnly(this)"><br>
             <button type="submit" > Search the Book </button>
         </form>
+    </div>
+
+    <div class = "loader" *ngIf="showLoader"> 
+       rana ranvijay   
     </div>
     
 
@@ -30,7 +34,7 @@
         <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookPrevPageCounter()">previous</a>
         <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookNextPageCounter()">next</a>
         <form #createGOTform = "ngForm" (ngSubmit) = "navigateToPage()" >
-            Book page number[1 to {{maxPage}}]: <input type="number" name="bookPageNumber" class = "me"
+            Book page number[1 to {{maxPage}}]: <input type="number" name="bookPageNumber"
                         [(ngModel)] = "bookPageNumber" #pageNumber = "ngModel" onkeyup="digitsOnly(this)"><br>
             <button type="submit" class = "btnid"> Submit </button>
         </form>

@@ -16,6 +16,7 @@ export class BooksComponent implements OnInit {
   public pageNumber: number = 1;
   public bookName: string = "";
   public flag:number = 0;
+  public showLoader: boolean = true;
 
   constructor(public bookHttpService: BookHttpService) { }
 
@@ -40,8 +41,12 @@ export class BooksComponent implements OnInit {
 
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
+        console.log(this.showLoader);
+        this.showLoader = false;
+        console.log(this.showLoader);
         this.allBook = data;
         //this.allBook = data[0].authors;
+        
       },
       error => {
         if (error = 'ERR_INTERNET_DISCONNECTED') {
@@ -49,12 +54,6 @@ export class BooksComponent implements OnInit {
         }
         console.log("some error occured");
         console.log(error.errorMessage);
-      },
-      beforeSend => {
-        $(".loader").css("display","flex");
-      },
-      complete => {
-        $(".loader").css("display","none");
       }
     )
   }

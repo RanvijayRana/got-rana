@@ -15,7 +15,8 @@ export class HousesComponent implements OnInit {
   public maxPage: number;
   public pageNumber: number = 1;
   public houseName: string = "";
-  public flag:number = -1;
+  public flagAlpha:number = 0;
+  public showLoader:boolean = false;
 
   constructor(public bookHttpService: BookHttpService) { }
 
@@ -57,17 +58,32 @@ export class HousesComponent implements OnInit {
   }
 
   searchHouse() {
-    while(this.pageNumber <= this.maxPage && this.flag == 0){
+    this.showLoader = true;
+    while(this.pageNumber <= this.maxPage && this.flagAlpha == 0){
+      console.log("call number" + this.flagAlpha);
       this.allHouse = this.bookHttpService.getAllHouse(this.pageNumber).subscribe(
         data => {
           if(data.length >= 0){
             for (let index = 0; index < data.length; index++) {
-              this.flag = data[index].name.toLowerCase().search(this.houseName.toLowerCase);
-              if( this.flag >= 0){
+              console.log("index" + index);
+              console.log(data[index].name);
+              //console.log(data[index].name.toLowerCase());
+              console.log(this.houseName);
+              console.log(this.houseName.toLowerCase());
+              //this.flag = data[index].name.toLowerCase().search(this.houseName.toLowerCase);
+              //if( data[index].name.toLowerCase().search(this.houseName.toLowerCase)){
+                if( data[index].name.toLowerCase() == (this.houseName.toLowerCase())){
+                  this.showLoader = false;
                   this.allHouse = [];
                   this.allHouse.push(data[index]);
+                  this.flagAlpha = 1;
+                  console.log(this.flagAlpha);
+                  
+                  console.log("time to moveon");
                   break;
-              }  
+                  //return 0;
+                  
+                }
             }
           }
         },
@@ -79,6 +95,10 @@ export class HousesComponent implements OnInit {
           console.log(error.errorMessage);
         }
       )
+      console.log("flag value"+this.flagAlpha);
+      if(this.flagAlpha > 0){
+      break;
+    }
           this.pageNumber++;
 
 

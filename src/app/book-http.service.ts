@@ -24,6 +24,7 @@ export class BookHttpService {
   }
 
   public getAllBook(bookPageNumber): any{
+    
     let myResponse = this._http.get(this.baseUrl+'books?page='+bookPageNumber+'&pageSize=6'); 
     console.log(`page number: ${bookPageNumber}`); 
     console.log(myResponse);

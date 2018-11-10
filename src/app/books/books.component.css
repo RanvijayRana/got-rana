@@ -3,7 +3,7 @@
     position: absolute;
     top: 10%;
     left: 40%;
-    display: none;
+    display: flex;
     justify-content: center;
     border: 10px solid blue; /* Light grey */
     border-top: 10px solid #66b9bf; /* Blue */

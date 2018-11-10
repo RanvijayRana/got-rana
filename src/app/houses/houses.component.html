@@ -4,10 +4,13 @@
   <div>
     <form #searchGOTform = "ngForm" (ngSubmit) = "searchHouse()">
         Book name to be searched: <input type="text" name="houseName" class = "me1"
-                    [(ngModel)] = "houseName" #houseName1 = "ngModel" onkeyup="lettersOnly(this)"><br>
+                    [(ngModel)] = "houseName" #houseName1 = "ngModel"><br>
         <button type="submit" > Search the Book </button>
     </form>
 </div>
+<div class = "loader" *ngIf="showLoader"> 
+        rana ranvijay   
+     </div>
 
   <div class="row" *ngIf = "allHouse.length > 0">
       <div *ngFor = "let house of allHouse" class="col-md-4">
@@ -30,7 +33,7 @@
     <a [routerLink]="['/houses']" class="btn btn-primary" (click) = "houseNextPageCounter()">next</a>
     <form #createGOTform = "ngForm" (ngSubmit) = "navigateToPage()" >
         Book page number[1 to {{maxPage}}]: <input type="number" name="housePageNumber" class = "me"
-                    [(ngModel)] = "housePageNumber" #huousepageNumber1 = "ngModel" onkeyup="digitsOnly(this)"><br>
+                    [(ngModel)] = "housePageNumber" #huousepageNumber1 = "ngModel"><br>
         <button type="submit" class = "btnid"> Submit </button>
     </form>
 </div>
