@@ -15,8 +15,8 @@ export class HousesComponent implements OnInit {
   public maxPage: number;
   public pageNumber: number = 1;
   public houseName: string = "";
-  public flagAlpha:number = 0;
-  public showLoader:boolean = false;
+  public flag: number = 0;
+  public showLoader: boolean = false;
 
   constructor(public bookHttpService: BookHttpService) { }
 
@@ -39,51 +39,35 @@ export class HousesComponent implements OnInit {
     }
     )
 
+    this.showLoader = true;
+
     this.allHouse = this.bookHttpService.getAllHouse(this.pageNumber).subscribe(
-      data =>{
+      data => {
+        this.showLoader = false;
         console.log(data);
         this.allHouse = data;
       },
-      error =>{
+      error => {
         console.log("some error occured");
         console.log(error.errorMessage);
-      },
-      beforeSend => {
-        $(".loader").css("display", "flex");
-      },
-      complete => {
-        $(".loader").css("display", "none");
       }
     )
   }
 
   searchHouse() {
     this.showLoader = true;
-    while(this.pageNumber <= this.maxPage && this.flagAlpha == 0){
-      console.log("call number" + this.flagAlpha);
+    while (this.pageNumber <= this.maxPage && this.flag == 0) {
       this.allHouse = this.bookHttpService.getAllHouse(this.pageNumber).subscribe(
         data => {
-          if(data.length >= 0){
+          if (data.length >= 0) {
             for (let index = 0; index < data.length; index++) {
-              console.log("index" + index);
-              console.log(data[index].name);
-              //console.log(data[index].name.toLowerCase());
-              console.log(this.houseName);
-              console.log(this.houseName.toLowerCase());
-              //this.flag = data[index].name.toLowerCase().search(this.houseName.toLowerCase);
-              //if( data[index].name.toLowerCase().search(this.houseName.toLowerCase)){
-                if( data[index].name.toLowerCase() == (this.houseName.toLowerCase())){
-                  this.showLoader = false;
-                  this.allHouse = [];
-                  this.allHouse.push(data[index]);
-                  this.flagAlpha = 1;
-                  console.log(this.flagAlpha);
-                  
-                  console.log("time to moveon");
-                  break;
-                  //return 0;
-                  
-                }
+              if (data[index].name.toLowerCase() == (this.houseName.toLowerCase())) {
+                this.showLoader = false;
+                this.allHouse = [];
+                this.allHouse.push(data[index]);
+                this.flag++;
+                break;
+              }
             }
           }
         },
@@ -95,23 +79,22 @@ export class HousesComponent implements OnInit {
           console.log(error.errorMessage);
         }
       )
-      console.log("flag value"+this.flagAlpha);
-      if(this.flagAlpha > 0){
-      break;
+      this.pageNumber++;
     }
-          this.pageNumber++;
-
-
+    if (this.pageNumber > this.maxPage) {
+      this.showLoader = false;
+      alert("House: " + this.houseName + "not found");
     }
-    
+
   }
 
   houseNextPageCounter() {
+    this.showLoader = true;
     this.housePageNumber++;
     console.log(this.housePageNumber);
     this.allHouse = this.bookHttpService.getAllHouse(this.housePageNumber).subscribe(
       data => {
-
+        this.showLoader = false;
         console.log(data.length);
         if (data.length == 0) {
           this.housePageNumber--;
@@ -147,6 +130,7 @@ export class HousesComponent implements OnInit {
   }
 
   housePrevPageCounter() {
+    this.showLoader = true;
     this.housePageNumber--;
     if (this.housePageNumber <= 0) {
       alert("You are the first page of directory; and data are as follow");
@@ -156,7 +140,7 @@ export class HousesComponent implements OnInit {
     this.allHouse = this.bookHttpService.getAllHouse(this.housePageNumber).subscribe(
       data => {
 
-
+        this.showLoader = false;
         if (data.length == 0) {
           this.housePageNumber++;
           alert("data not found");
@@ -178,9 +162,11 @@ export class HousesComponent implements OnInit {
   }
 
   navigateToPage() {
+    this.showLoader = true;
     console.log(this.housePageNumber);
     this.allHouse = this.bookHttpService.getAllHouse(this.housePageNumber).subscribe(
       data => {
+        this.showLoader = false;
         if (data.length == 0) {
           alert("data not found");
         }
@@ -199,16 +185,5 @@ export class HousesComponent implements OnInit {
       }
     )
   }
-
-  digitsOnly(input) {
-    var regex = /[^0-9]/g;
-    input.value = input.value.replace(regex, "");
-  }
-
-  lettersOnly(input) {
-    var regex = /[^a-z]/gi;
-    input.value = input.value.replace(regex, "");
-  }
-
 
 }

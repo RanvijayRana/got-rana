@@ -15,13 +15,13 @@ export class BooksComponent implements OnInit {
   public maxPage: number;
   public pageNumber: number = 1;
   public bookName: string = "";
-  public flag:number = 0;
+  public flag: number = 0;
   public showLoader: boolean = true;
 
   constructor(public bookHttpService: BookHttpService) { }
 
   ngOnInit() {
-    
+
     if (12 % 6 == 0) {
       this.maxPage = 12 / 6;
     }
@@ -39,14 +39,12 @@ export class BooksComponent implements OnInit {
     }
     )
 
+    this.showLoader = true;
+
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
-        console.log(this.showLoader);
         this.showLoader = false;
-        console.log(this.showLoader);
         this.allBook = data;
-        //this.allBook = data[0].authors;
-        
       },
       error => {
         if (error = 'ERR_INTERNET_DISCONNECTED') {
@@ -59,17 +57,26 @@ export class BooksComponent implements OnInit {
   }
 
   searchBook() {
-    while(this.pageNumber <= this.maxPage && this.flag == 0){
+    this.showLoader = true;
+    console.log("before while "+this.flag);
+    while ((this.pageNumber <= this.maxPage) && (this.flag == 0)) {
+      
+    console.log("in while" + this.flag);
       this.allBook = this.bookHttpService.getAllBook(this.pageNumber).subscribe(
         data => {
-          if(data.length >= 0){
+          if (data.length >= 0) {
             for (let index = 0; index < data.length; index++) {
-              if(data[index].name == this.bookName){
-                  this.flag ++;
-                  this.allBook = [];
-                  this.allBook.push(data[index]);
-                  break;
-              }  
+              if (data[index].name.toLowerCase() == (this.bookName.toLowerCase())) {
+                this.showLoader = false;
+                
+                console.log("b4 increment "  + this.flag);
+                this.flag++;
+                
+                console.log("af incre" + this.flag);
+                this.allBook = [];
+                this.allBook.push(data[index]);
+                break;
+              }
             }
           }
         },
@@ -79,26 +86,26 @@ export class BooksComponent implements OnInit {
           }
           console.log("some error occured");
           console.log(error.errorMessage);
-        },
-        beforeSend => {
-          $(".loader").css("display","flex");
-        },
-        complete => {
-          $(".loader").css("display","none");
         }
       )
-          this.pageNumber++;
-
-
+      console.log("b4 while termination"+ this.flag);
+        this.pageNumber++;
     }
-    
+    console.log("af while termination"+ this.flag);
+    if (this.flag == 0) {
+      this.showLoader = false;
+      alert("Book: " + this.bookName + " not found");
+    }
+
   }
 
   bookNextPageCounter() {
+    this.showLoader = true;
     this.bookPageNumber++;
     console.log(this.bookPageNumber);
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
+        this.showLoader = false;
 
         console.log(data.length);
         if (data.length == 0) {
@@ -135,6 +142,7 @@ export class BooksComponent implements OnInit {
   }
 
   bookPrevPageCounter() {
+    this.showLoader = true;
     this.bookPageNumber--;
     if (this.bookPageNumber <= 0) {
       alert("You are the first page of directory; and data are as follow");
@@ -144,7 +152,7 @@ export class BooksComponent implements OnInit {
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
 
-
+        this.showLoader = false;
         if (data.length == 0) {
           this.bookPageNumber++;
           alert("data not found");
@@ -166,9 +174,11 @@ export class BooksComponent implements OnInit {
   }
 
   navigateToPage() {
+    this.showLoader = true;
     console.log(this.bookPageNumber);
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
+        this.showLoader = false;
         if (data.length == 0) {
           alert("data not found");
         }
@@ -187,16 +197,5 @@ export class BooksComponent implements OnInit {
       }
     )
   }
-
-  digitsOnly(input) {
-    var regex = /[^0-9]/g;
-    input.value = input.value.replace(regex, "");
-  }
-
-  lettersOnly(input) {
-    var regex = /[^a-z]/gi;
-    input.value = input.value.replace(regex, "");
-  }
-
 
 }

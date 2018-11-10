@@ -4,7 +4,7 @@
     <div>
         <form #searchGOTform = "ngForm" (ngSubmit) = "searchBook()" >
             Book name to be searched: <input type="text" name="bookName"
-            [(ngModel)] = "bookName" #bookName1 = "ngModel" onkeyup="lettersOnly(this)"><br>
+            [(ngModel)] = "bookName" #bookName1 = "ngModel"><br>
             <button type="submit" > Search the Book </button>
         </form>
     </div>
@@ -35,7 +35,7 @@
         <a [routerLink]="['/books']" class="btn btn-primary" (click) = "bookNextPageCounter()">next</a>
         <form #createGOTform = "ngForm" (ngSubmit) = "navigateToPage()" >
             Book page number[1 to {{maxPage}}]: <input type="number" name="bookPageNumber"
-                        [(ngModel)] = "bookPageNumber" #pageNumber = "ngModel" onkeyup="digitsOnly(this)"><br>
+                        [(ngModel)] = "bookPageNumber" #pageNumber = "ngModel"><br>
             <button type="submit" class = "btnid"> Submit </button>
         </form>
     </div>
