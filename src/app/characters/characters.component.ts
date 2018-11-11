@@ -101,10 +101,10 @@ export class CharactersComponent implements OnInit {
     console.log(this.characterPageNumber);
     this.allCharacters = this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
       data => {
-
+        
+        this.showLoader = false;
         console.log(data.length);
         if (data.length == 0) {
-          this.showLoader = false;
           this.characterPageNumber--;
           alert("You are at the last page of directory and Data on this page are as follow");
           this.showLoader = true;
