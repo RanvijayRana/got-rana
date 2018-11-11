@@ -13,22 +13,21 @@ import { Location} from '@angular/common';
 export class BookDetailsComponent implements OnInit {
 
   public myBook;
+  public showLoader: boolean = true;
 
   constructor(private _route: ActivatedRoute,private router: Router, public bookHttpService: BookHttpService,
               private loc: Location) { }
 
   ngOnInit() {
      let myBookUrl = this._route.snapshot.paramMap.get('bookUrl');
-     console.log(myBookUrl);
-
      
     this.myBook = this.bookHttpService.getSingleBook(myBookUrl).subscribe(
       data =>{
-        console.log("logging data");
-        console.log(data);
+        this.showLoader = false;
         this.myBook = data;
       },
       error =>{
+        this.showLoader = false;
         console.log("some error occured");
         console.log(error.errorMessage);
       }

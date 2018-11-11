@@ -14,22 +14,21 @@ import { Location} from '@angular/common';
 export class CharacterDetailsComponent implements OnInit {
 
   public myCharacter;
+  public showLoader: boolean = true;
 
   constructor(private _route: ActivatedRoute,private router: Router, public bookHttpService: BookHttpService,
               private loc: Location) { }
 
   ngOnInit() {
      let myCharacterUrl = this._route.snapshot.paramMap.get('characterUrl');
-     console.log(myCharacterUrl);
-
      
     this.myCharacter = this.bookHttpService.getSingleBook(myCharacterUrl).subscribe(
       data =>{
-        console.log("logging data");
-        console.log(data);
+        this.showLoader = false;
         this.myCharacter = data;
       },
       error =>{
+        this.showLoader = false;
         console.log("some error occured");
         console.log(error.errorMessage);
       }

@@ -64,10 +64,10 @@ export class CharactersComponent implements OnInit {
     while (this.pageNumber <= this.maxPage && this.flag == 0) {
       this.allCharacters = this.bookHttpService.getAllCharacters(this.pageNumber).subscribe(
         data => {
+          this.showLoader = false;
           if (data.length >= 0) {
             for (let index = 0; index < data.length; index++) {
               if (data[index].name.toLowerCase() == (this.characterName.toLowerCase())) {
-                this.showLoader = false;
                 this.flag++;
                 this.allCharacters = [];
                 this.allCharacters.push(data[index]);
@@ -85,25 +85,16 @@ export class CharactersComponent implements OnInit {
         }
       )
       this.pageNumber++;
-
-
     }
-    if (this.pageNumber > this.maxPage) {
-      this.showLoader = false;
-      alert("Character: " + this.characterName + "not found");
-    }
-
   }
 
   characterNextPageCounter() {
     this.showLoader = true;
     this.characterPageNumber++;
-    console.log(this.characterPageNumber);
     this.allCharacters = this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
       data => {
         
         this.showLoader = false;
-        console.log(data.length);
         if (data.length == 0) {
           this.characterPageNumber--;
           alert("You are at the last page of directory and Data on this page are as follow");
@@ -123,10 +114,8 @@ export class CharactersComponent implements OnInit {
           )
         }
         else {
-          console.log("hello");
           this.allCharacters = data;
         }
-        console.log(data.length);
 
       },
       error => {
@@ -147,7 +136,6 @@ export class CharactersComponent implements OnInit {
       alert("You are the first page of directory; and data are as follow");
       this.characterPageNumber = 1;
     }
-    console.log(this.characterPageNumber);
     this.allCharacters = this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
       data => {
 
@@ -158,7 +146,6 @@ export class CharactersComponent implements OnInit {
         }
         else {
           this.allCharacters = data;
-          console.log(data);
         }
         //this.allBook = data[0].authors;
       },
@@ -174,7 +161,6 @@ export class CharactersComponent implements OnInit {
 
   navigateToPage() {
     this.showLoader = true;
-    console.log(this.characterPageNumber);
     this.allCharacters = this.bookHttpService.getAllCharacters(this.characterPageNumber).subscribe(
       data => {
         this.showLoader = false;
@@ -183,7 +169,6 @@ export class CharactersComponent implements OnInit {
         }
         else {
           this.allCharacters = data;
-          console.log(data);
         }
         //this.allBook = data[0].authors;
       },

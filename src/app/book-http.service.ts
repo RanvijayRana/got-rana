@@ -13,12 +13,9 @@ export class BookHttpService {
   public currentBook;
   public baseUrl = 'https://www.anapioficeandfire.com/api/';
 
-  constructor(private _http:HttpClient) { 
-    console.log("Book- http service called");
-  }
+  constructor(private _http:HttpClient) {}
 
   private handleError(err :HttpErrorResponse){
-    console.log;
     console.log(err.message);
     return Observable.throw(err.message)
   }
@@ -26,38 +23,31 @@ export class BookHttpService {
   public getAllBook(bookPageNumber): any{
     
     let myResponse = this._http.get(this.baseUrl+'books?page='+bookPageNumber+'&pageSize=6'); 
-    console.log(`page number: ${bookPageNumber}`); 
-    console.log(myResponse);
     return myResponse;
   }
 
   public getSingleBook(myBookUrl): any{
-    let myResponse = this._http.get(myBookUrl);  
-    console.log(myResponse);
+    let myResponse = this._http.get(myBookUrl); 
     return myResponse;
   }
 
   public getAllHouse(housePageNumber): any{
     let myResponse = this._http.get(this.baseUrl+'houses?page='+housePageNumber+'&pageSize=6');  
-    console.log(myResponse);
     return myResponse;
   }
 
   public getSingleHouse(myHouseUrl): any{
-    let myResponse = this._http.get(myHouseUrl);  
-    console.log(myResponse);
+    let myResponse = this._http.get(myHouseUrl);
     return myResponse;
   }
 
   public getAllCharacters(characterPageNumber): any{
     let myResponse = this._http.get(this.baseUrl+'characters?page='+characterPageNumber+'&pageSize=6');  
-    console.log(myResponse);
     return myResponse;
   }
 
   public getSingleCharacter(myCharacterUrl): any{
     let myResponse = this._http.get(myCharacterUrl);  
-    console.log(myResponse);
     return myResponse;
   }
 }

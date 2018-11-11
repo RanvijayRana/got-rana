@@ -60,24 +60,14 @@ export class BooksComponent implements OnInit {
     this.pageNumber = 1;
     this.flag = 0;
     this.showLoader = true;
-    console.log("before while "+this.flag);
     while ((this.pageNumber <= this.maxPage) && (this.flag == 0)) {
-      
-    console.log("in while" + this.flag);
       this.allBook = this.bookHttpService.getAllBook(this.pageNumber).subscribe(
         data => {
-          
-        
+          this.showLoader = false;
           if (data.length >= 0) {
             for (let index = 0; index < data.length; index++) {
-    console.log("pageNumber in search" + this.pageNumber + "maxpage # "+this.maxPage +" @ index @ " + index + data[index].name);
               if (data[index].name.toLowerCase() == (this.bookName.toLowerCase())) {
-                this.showLoader = false;
-                
-                console.log("b4 increment "  + this.flag);
                 this.flag++;
-                
-                console.log("af incre" + this.flag);
                 this.allBook = [];
                 this.allBook.push(data[index]);
                 break;
@@ -86,21 +76,15 @@ export class BooksComponent implements OnInit {
           }
         },
         error => {
+          this.showLoader = false;
           if (error = 'ERR_INTERNET_DISCONNECTED') {
             alert("Not connected to Internet, check your connection please");
           }
           console.log("some error occured");
           console.log(error.errorMessage);
         }
-      )
-      console.log("b4 while termination"+ this.flag);
-            
+      )  
       this.pageNumber++;
-    }
-    console.log("af while termination"+ this.flag);
-    if (this.flag == 0) {
-      this.showLoader = false;
-      alert("Book: " + this.bookName + " not found");
     }
 
   }
@@ -108,12 +92,9 @@ export class BooksComponent implements OnInit {
   bookNextPageCounter() {
     this.showLoader = true;
     this.bookPageNumber++;
-    console.log(this.bookPageNumber);
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
         this.showLoader = false;
-
-        console.log(data.length);
         if (data.length == 0) {
           this.bookPageNumber--;
           alert("You are at the last page of directory and Data on this page are as follow");
@@ -131,11 +112,8 @@ export class BooksComponent implements OnInit {
           )
         }
         else {
-          console.log("hello");
           this.allBook = data;
         }
-        console.log(data.length);
-
       },
       error => {
         if (error = 'ERR_INTERNET_DISCONNECTED') {
@@ -154,7 +132,6 @@ export class BooksComponent implements OnInit {
       alert("You are the first page of directory; and data are as follow");
       this.bookPageNumber = 1;
     }
-    console.log(this.bookPageNumber);
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
 
@@ -165,9 +142,7 @@ export class BooksComponent implements OnInit {
         }
         else {
           this.allBook = data;
-          console.log(data);
         }
-        //this.allBook = data[0].authors;
       },
       error => {
         if (error = 'ERR_INTERNET_DISCONNECTED') {
@@ -181,7 +156,6 @@ export class BooksComponent implements OnInit {
 
   navigateToPage() {
     this.showLoader = true;
-    console.log(this.bookPageNumber);
     this.allBook = this.bookHttpService.getAllBook(this.bookPageNumber).subscribe(
       data => {
         this.showLoader = false;
@@ -190,7 +164,6 @@ export class BooksComponent implements OnInit {
         }
         else {
           this.allBook = data;
-          console.log(data);
         }
         //this.allBook = data[0].authors;
       },
