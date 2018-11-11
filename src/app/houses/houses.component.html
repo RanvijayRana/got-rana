@@ -1,40 +1,38 @@
 <div class="container-fluid">
-  <div class="header">All Houses</div>
+  <h2 class="header">All Houses</h2>
 
   <div>
     <form #searchGOTform = "ngForm" (ngSubmit) = "searchHouse()">
-        Book name to be searched: <input type="text" name="houseName" class = "me1"
+        House name to be searched: <input type="text" name="houseName" class = "me1"
                     [(ngModel)] = "houseName" #houseName1 = "ngModel"><br>
-        <button type="submit" > Search the Book </button>
+        <button type="submit" class="btn btn-primary" > Search the House </button>
     </form>
 </div>
-<div class = "loader" *ngIf="showLoader"> 
-        rana ranvijay   
-     </div>
+<div class = "loader" *ngIf="showLoader"> </div>
 
   <div class="row" *ngIf = "allHouse.length > 0">
       <div *ngFor = "let house of allHouse" class="col-md-4">
           <div class="card card-primary houseDesign">
-              <div class="card-header">Title: </div>
+              <div class="card-header">Name of the House </div>
               <div class="card-block">
                {{house.name}}
-               <!--{{book}}-->
               </div>
               <div class="card-footer"> 
-                  Blog modified on: 
+                  Please click on button for more Details : 
                   <a [routerLink]="['/houseDetails',house.url]" class = "btn btn-primary">Read</a> 
               </div>
           </div>
       </div>
-  </div>
+  </div> <br>
 
   <div>
     <a [routerLink]="['/houses']" class="btn btn-primary" (click) = "housePrevPageCounter()">previous</a>
+    &nbsp;
     <a [routerLink]="['/houses']" class="btn btn-primary" (click) = "houseNextPageCounter()">next</a>
     <form #createGOTform = "ngForm" (ngSubmit) = "navigateToPage()" >
-        Book page number[1 to {{maxPage}}]: <input type="number" name="housePageNumber" class = "me"
+        House page number[1 to {{maxPage}}]: <input type="number" name="housePageNumber" class = "me"
                     [(ngModel)] = "housePageNumber" #huousepageNumber1 = "ngModel"><br>
-        <button type="submit" class = "btnid"> Submit </button>
+        <button type="submit" class = "btnid btn btn-primary" > Submit </button>
     </form>
 </div>
 

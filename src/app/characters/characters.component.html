@@ -1,25 +1,24 @@
 <div class="container-fluid">
-  <div class="header">All Characters</div>
+  <h2 class="header">All Characters</h2>
 
   <div>
     <form #searchGOTform = "ngForm" (ngSubmit) = "searchCharacter()">
-        Book name to be searched: <input type="text" name="characterName" class = "me1"
+        Character name to be searched: <input type="text" name="characterName" class = "me1"
                     [(ngModel)] = "characterName" #characterName1 = "ngModel"><br>
-        <button type="submit" > Search the Book </button>
+        <button type="submit" class = "btn btn-primary" > Search the Character </button>
     </form>
 </div>
 
-<div class = "loader" *ngIf="showLoader"> 
-    rana ranvijay   
- </div>
+<div class = "loader" *ngIf="showLoader"></div>
 
   <div class="row" *ngIf = "allCharacters.length > 0">
       <div *ngFor = "let character of allCharacters" class="col-md-4">
           <div class="card card-primary characterDesign">
               <div class="card-header">Title: </div>
-              <div class="card-block">
-               {{character.name}}
-               <!--{{book}}-->
+              <div class="card-block"> 
+                  <span *ngIf = "character.name" class = "design"> {{character.name}} : </span>
+                <span class = "fontDesign" *ngFor = "let alias of character.aliases; let first = first; 
+                    let last = last"> {{alias}} {{last ? '' : ','}}</span>
               </div>
               <div class="card-footer"> 
                   Blog modified on: 
@@ -27,15 +26,15 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> <br>
 
   <div>
-    <a [routerLink]="['/characters']" class="btn btn-primary" (click) = "characterPrevPageCounter()">previous</a>
+    <a [routerLink]="['/characters']" class="btn btn-primary" (click) = "characterPrevPageCounter()">previous</a> &nbsp;
     <a [routerLink]="['/characters']" class="btn btn-primary" (click) = "characterNextPageCounter()">next</a>
     <form #createGOTform = "ngForm" (ngSubmit) = "navigateToPage()" >
         Character's page number[1 to {{maxPage}}]: <input type="number" name="characterPageNumber" class = "me"
                     [(ngModel)] = "characterPageNumber" #characterPageNumber1 = "ngModel"><br>
-        <button type="submit" class = "btnid"> Submit </button>
+        <button type="submit" class = "btnid btn btn-primary"> Submit </button>
     </form>
 </div>
 

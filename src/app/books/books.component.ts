@@ -13,9 +13,9 @@ export class BooksComponent implements OnInit {
   public allBook = [];
   public bookPageNumber: number = 1;
   public maxPage: number;
-  public pageNumber: number = 1;
+  public pageNumber: number;
   public bookName: string = "";
-  public flag: number = 0;
+  public flag: number;
   public showLoader: boolean = true;
 
   constructor(public bookHttpService: BookHttpService) { }
@@ -57,6 +57,8 @@ export class BooksComponent implements OnInit {
   }
 
   searchBook() {
+    this.pageNumber = 1;
+    this.flag = 0;
     this.showLoader = true;
     console.log("before while "+this.flag);
     while ((this.pageNumber <= this.maxPage) && (this.flag == 0)) {
@@ -64,8 +66,11 @@ export class BooksComponent implements OnInit {
     console.log("in while" + this.flag);
       this.allBook = this.bookHttpService.getAllBook(this.pageNumber).subscribe(
         data => {
+          
+        
           if (data.length >= 0) {
             for (let index = 0; index < data.length; index++) {
+    console.log("pageNumber in search" + this.pageNumber + "maxpage # "+this.maxPage +" @ index @ " + index + data[index].name);
               if (data[index].name.toLowerCase() == (this.bookName.toLowerCase())) {
                 this.showLoader = false;
                 
@@ -89,7 +94,8 @@ export class BooksComponent implements OnInit {
         }
       )
       console.log("b4 while termination"+ this.flag);
-        this.pageNumber++;
+            
+      this.pageNumber++;
     }
     console.log("af while termination"+ this.flag);
     if (this.flag == 0) {

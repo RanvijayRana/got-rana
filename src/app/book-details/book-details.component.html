@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="header">specific Book</div>
+  <h2 class="header">Specific Book Details</h2>
 
   <div class="row" >
       <div class="col-md-10">
@@ -9,9 +9,9 @@
                Url for the book: <span class = "fontDesign">{{myBook.url}}</span> <br>
                Name of the book: <span class = "fontDesign">{{myBook.name}}</span><br>
                ISBN number of the book: <span class = "fontDesign">{{myBook.isbn}}</span> <br>
-               <div *ngFor = "let author of myBook.authors" >
-                    Author of the book: <span class = "fontDesign">{{author}}</span>
-               </div>
+               Author of the book: <span *ngFor = "let author of myBook.authors; let first = first; 
+                    let last = last" > <span class = "fontDesign">{{author}} {{last ? '' : ','}}</span>
+              </span> <br>
                Number of pages in book: <span class = "fontDesign">{{myBook.numberOfPages}}</span><br>
                Publisher of book: <span class = "fontDesign">{{myBook.publisher}}</span><br>
                Book published in country: <span class = "fontDesign">{{myBook.country}}</span><br>
@@ -21,6 +21,7 @@
               </div>
               <div class="card-footer"> 
                   
+                <button (click) = "goBackToPrevPage()" class = "btn btn-primary">Click to navigate to list of Books</button>   
               </div>
           </div>
       </div>
